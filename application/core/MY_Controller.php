@@ -44,12 +44,15 @@ class MY_Controller extends CI_Controller {
         ###template 
         $this->template->title->default($this->config->item('site_descr'));
         $this->template->description->default($this->config->item('site_descr'));
-        $this->template->powered = 'Powered by sbdev_ci & <a href="'.base_url().'">'.$this->config->item('site_name').'</a> & Codeigniter ver. '.CI_VERSION;
+	$this->template->meta->add('description', $this->config->item('site_descr'), 'meta');
+        $this->template->meta->add('keywords', $this->config->item('site_keywords'), 'meta');
+
+	$this->template->meta->add('icon', "/".$this->config->item('site_favicon'), 'link' , 'image/x-icon');
+        $this->template->meta->add('shortcut icon', "/".$this->config->item('site_favicon'), 'link', 'image/x-icon');
+
+	$this->template->powered = 'Powered by sbdev_ci & <a href="'.base_url().'">'.$this->config->item('site_name').'</a> & Codeigniter ver. '.CI_VERSION;
         $this->template->loadtime = 'Executed in ' . $this->benchmark->elapsed_time() . ' (' . $this->benchmark->memory_usage() . ')';
         $this->template->info = ($this->session->flashdata('info') ? '<div class="alert alert-info fade in" role="alert"><button data-dismiss="alert" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>' . $this->session->flashdata('info') . '</div>' : '');
-
-//        $this->template->stylesheet->add("public/assets/bootstrap/css/bootstrap.min.css");
-//        $this->template->stylesheet->add("public/assets/bootstrap/css/bootstrap-theme.min.css");
 
         $this->template->stylesheet->add("public/assets/bootstrap/css/metro.min.css" . $this->config->item('cssjsver'));
         $this->template->stylesheet->add("public/assets/bootstrap/css/glyphicons-social.css" . $this->config->item('cssjsver'));

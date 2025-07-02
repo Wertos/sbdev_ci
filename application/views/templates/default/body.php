@@ -3,14 +3,11 @@
     <head>
         <base href="<?php echo base_url(); ?>">
         <title><?php echo $this->template->title->append(' - ' . $this->config->item('site_name')); ?></title>
-        <meta name="description" content="Каталог магнет ссылок. Открытый торрент-трекер без регистрации и рейтинга с самыми последними фильмами." />
-        <meta name="keywords" content="торрент,torrent,файл,фильмы,бесплатно,tracker,аниме,книги,магнет,музыка,сериал,игры,magnet" />
         <meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<?php echo $this->template->meta; ?>
 	<!-- <link rel="alternate" type="application/rss+xml" title="Новые торренты ToRR.ws" href="<?php echo base_url(); ?>rss.xml" />  -->
-	<link rel="icon" href="/favicon.ico" type="image/x-icon">
-	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
         <?php 
 			/*        	
         	$css = $this->template->stylesheet; 

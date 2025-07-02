@@ -13,8 +13,11 @@ if (PHP_SAPI === 'cli') {
 }
 
 $config['site_name'] = 'MySite';
-$config['admin_email'] = 'admin@localhost';
 $config['site_descr'] = 'Каталог магнет ссылок'; // site description
+$config['site_keywords'] = 'site,key,words';
+$config['site_favicon'] = 'favicon.ico';
+
+$config['admin_email'] = 'admin@localhost';
 
 // path to public folder
 $config['public_folder'] = FCPATH.'public/'; // /var/www.../

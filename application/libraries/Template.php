@@ -288,7 +288,7 @@ class Template {
      * @param mixed $value
      * @param enum $type
      */
-    public function trigger_meta($name, $value, $type = 'meta') {
+    public function trigger_meta($name, $value, $type = 'meta', $rel = '') {
         $name = htmlspecialchars(strip_tags($name));
         $value = htmlspecialchars(strip_tags($value));
         
@@ -301,10 +301,9 @@ class Template {
                 $content = '<meta name="' . $name . '" content="' . $value . '">' . "\n\t";
                 break;
             case 'link' :
-                $content = '<link rel="' . $name . '" href="' . $value . '">' . "\n\t";
+                $content = '<link rel="' . $name . '" href="' . $value . '" rel="' . $rel . '">' . "\n\t";
                 break;
         }
-        
         return $content;
     }
     
