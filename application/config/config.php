@@ -12,7 +12,7 @@ if (PHP_SAPI === 'cli') {
 		$config['base_url'] = (string) "http".((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "s" : "")."://".$_SERVER['HTTP_HOST'].str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
 }
 
-$config['site_name'] = 'ToRR.ws';
+$config['site_name'] = 'MySite';
 $config['admin_email'] = 'admin@localhost';
 $config['site_descr'] = 'Каталог магнет ссылок'; // site description
 
@@ -20,6 +20,7 @@ $config['site_descr'] = 'Каталог магнет ссылок'; // site desc
 $config['public_folder'] = FCPATH.'public/'; // /var/www.../
 
 $config['default_theme'] = 'default';
+$config['cssjsver'] = (ENVIRONMENT == 'development') ? '?ver='.rand() : '';
 
 $config['save_torrent'] = TRUE; // save torrent file to server or use only generated magnet links (for new torrents)
 $config['update_torrent_time'] = 5; // how often user can update torrent stats in minutes
@@ -33,7 +34,7 @@ $config['home_per_cat'] = 5; // how many torrents per category on home page
 $config['avatar_size'] = 300; // max size tu upload in KB
 $config['avatar_resize_w'] = 150; // resize avatar in width px
 $config['avatar_resize_h'] = 150; // resize avatar in height px
-
+$config['avatar_dir'] = $config['public_folder'] . 'avatars/'; //Avatar dir
 
 $config['comm_per_page'] = 10; // comments per page
 $config['comm_min_lengh'] = 5; // min charecters for comment

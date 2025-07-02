@@ -55,6 +55,10 @@ class User extends MY_Controller {
         //logged in user's data
         $user = $this->data['curuser'];
 
+	if(!file_exists($this->config->item('avatar_dir') . $user->userfile))
+	{
+	    $user->userfile = '../../assets/pic/default_avatar.jpg';
+	}
 
         //if email is different than validate
         if ($this->input->post('email') != $user->email)
@@ -71,7 +75,7 @@ class User extends MY_Controller {
 
 
         ### working with userfile (avatar)
-        $config['upload_path'] = './public/upload/avatars/';
+        $config['upload_path'] = $this->config->item('avatar_dir');
         $config['allowed_types'] = 'gif|jpg|png';
         $config['max_size'] = $this->config->item('avatar_size');
         $config['encrypt_name'] = TRUE;
@@ -159,7 +163,7 @@ class User extends MY_Controller {
             );
 
             $this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $image_errors));
-
+            $this->data['id'] = $user->id;
             $this->template->title = 'Личный кабинет';
             $this->template->content->view('profile', $this->data);
             $this->template->publish();
@@ -176,11 +180,11 @@ class User extends MY_Controller {
 
 
             //if file was uploaded than update db 'userfile'
-            if (isset($file) && file_exists('public/upload/avatars/' . $file['file_name'])) {
+            if (isset($file) && file_exists($this->config->item('avatar_dir') . $file['file_name'])) {
 
                 //if have current avatar for this user than delete
-                if (file_exists('public/upload/avatars/' . $user->userfile))
-                    unlink('public/upload/avatars/' . $user->userfile);
+                if (file_exists($this->config->item('avatar_dir') . $user->userfile))
+                    unlink($this->config->item('avatar_dir') . $user->userfile);
 
                 $data['userfile'] = $file['file_name'];
             }

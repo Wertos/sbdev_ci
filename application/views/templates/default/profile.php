@@ -13,6 +13,7 @@
 
         <div class="row">
             <div class="col-sm-2" align="center">
+		<a onclick="avatar_delete(<?php echo $id; ?>);" href="javascript:void(0);" id="avatar_del" style="position:absolute; top: 1px; right: 25px;"><span class="glyphicon glyphicon-remove" style="color:red;"></span></a>
                 <?= $avatar ?>
             </div>
             <div class="col-sm-10">

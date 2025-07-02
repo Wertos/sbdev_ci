@@ -8,12 +8,9 @@
         <meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="yandex-verification" content="6d4bb1354f11ea31" />
-        <meta name="google-site-verification" content="y1VRXllWEecI-suiM7oPvyoxqm7qN3glw7J0TD5XWWI" />
-		<meta name="cypr-verification" content="db63fd4b95f075f19ad8a2b0273e4aa9"/>
-		<link rel="alternate" type="application/rss+xml" title="Новые торренты ToRR.ws" href="<?php echo base_url(); ?>rss.xml" /> 
-		<link rel="icon" href="/favicon.ico" type="image/x-icon">
-		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<!-- <link rel="alternate" type="application/rss+xml" title="Новые торренты ToRR.ws" href="<?php echo base_url(); ?>rss.xml" />  -->
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
         <?php 
 			/*        	
         	$css = $this->template->stylesheet; 
@@ -41,7 +38,7 @@
             unset($match, $file);
             */
         ?>
-		<?php echo $this->template->stylesheet; ?>
+	<?php echo $this->template->stylesheet; ?>
         <?php echo $this->template->javascript; ?>
 <?php if (isset($this->_ci_cached_vars['details'])): ?>
 		<meta property="og:locale" content="ru_RU" />

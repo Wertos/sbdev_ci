@@ -43,18 +43,6 @@ var report_box = function(id, where) {
     return false;
 };
 
-var delete_comment = function(id) {
-    var parent = $("li[id='c-" + id + "']");
-    if (confirm("Удалить этот комментарий?"))
-    {
-        $.get("/comments/delete/" + id, function() {
-            parent.fadeOut('slow', function() {
-                $(this).remove();
-            });
-        });
-    }
-    return false;
-};
 
 var quote_comment = function(id, user) {
 
@@ -68,6 +56,18 @@ var quote_comment = function(id, user) {
     return false;
 };
 
+var avatar_delete = function(id) {
+    if (confirm("Удалить аватар?"))
+    {
+	alert(id);
+//        $.get("/comments/delete/" + id, function() {
+//            parent.fadeOut('slow', function() {
+//                $(this).remove();
+//            });
+//        });
+    }
+    return false;
+};
 
 ///send report
 $(document).on('submit', '#add_report_form', function() {

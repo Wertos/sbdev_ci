@@ -50,13 +50,14 @@ class MY_Controller extends CI_Controller {
 
 //        $this->template->stylesheet->add("public/assets/bootstrap/css/bootstrap.min.css");
 //        $this->template->stylesheet->add("public/assets/bootstrap/css/bootstrap-theme.min.css");
-        $this->template->stylesheet->add("public/assets/bootstrap/css/metro.min.css");
-        $this->template->stylesheet->add("public/assets/bootstrap/css/glyphicons-social.css");
-        $this->template->stylesheet->add("public/assets/" . $this->config->item('default_theme') . ".css");
 
-        $this->template->javascript->add("public/assets/js/jquery.min.js");
-        $this->template->javascript->add("public/assets/bootstrap/js/bootstrap.min.js");
-        $this->template->javascript->add("public/assets/js/main.js");
+        $this->template->stylesheet->add("public/assets/bootstrap/css/metro.min.css" . $this->config->item('cssjsver'));
+        $this->template->stylesheet->add("public/assets/bootstrap/css/glyphicons-social.css" . $this->config->item('cssjsver'));
+        $this->template->stylesheet->add("public/assets/" . $this->config->item('default_theme') . ".css" . $this->config->item('cssjsver'));
+
+        $this->template->javascript->add("public/assets/js/jquery.min.js" . $this->config->item('cssjsver'));
+        $this->template->javascript->add("public/assets/bootstrap/js/bootstrap.min.js" . $this->config->item('cssjsver'));
+        $this->template->javascript->add("public/assets/js/main.js" . $this->config->item('cssjsver'));
         if(!$this->agent->is_robot()) {
 //			$this->template->javascript->add("public/assets/js/slide.js");
 		}
