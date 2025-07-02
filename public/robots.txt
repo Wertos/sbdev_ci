@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /auth
+Disallow: /auth/*
+Disallow: /user
+Disallow: /user/*
+Disallow: /admin
+Disallow: /admin/*
+Host: http://torr.ws
+Sitemap: http://torr.ws/sitemap.xml
