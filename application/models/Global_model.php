@@ -7,9 +7,9 @@ class Global_model extends CI_Model {
 
     function categories() {
         	return $this->db->select('c.*, COUNT(t.id) AS count')
-        					->from('categories c')
-									->join('torrents t', 't.category = c.id')
-									->group_by('c.id')
+       					->from('categories c')
+					->join('torrents t', 't.category = c.id', 'left')
+					->group_by('c.id')
                 	->order_by('c.sort', 'asc')
                 	->get()->result();
     }

@@ -83,6 +83,7 @@ function updatestats($tid, $del = 0)
 		if (PHP_SAPI === 'cli') return;
         
         if (!$CI->input->is_ajax_request()) {
+			redirect('torrent/' . $tid);
 			return;
         } else { // ajax calls
             $CI->load->view('templates/' . $CI->config->item('default_theme') . '/helpers/peers', $array);

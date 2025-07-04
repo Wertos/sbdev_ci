@@ -15,12 +15,10 @@ class Torrent extends MY_Controller {
 
         $id = (int) $id;
 
-        //$this->load->library('jbbcode');
-		$this->load->library('BBCodeParser');
+	$this->load->library('BBCodeParser');
         $this->load->helper('smiley');
-
         $details = $this->details_model->get_details($id);
-		$bookmarks = $this->details_model->check_bookmarks($id, $this->data['curuser']->id);
+	$bookmarks = $this->details_model->check_bookmarks($id, $this->data['curuser']->id);
         $this->details_model->update_view($id);
         
         if (!$details)
@@ -78,7 +76,7 @@ class Torrent extends MY_Controller {
         $config['suffix'] = '/#comm';
         $this->pagination->initialize($config);
 
-		$moderate = ($this->data['logged_in'] && $this->data['admin_mod']) ? TRUE : FALSE;
+	$moderate = ($this->data['logged_in'] && $this->data['admin_mod']) ? TRUE : FALSE;
         ###comments end
         //var_dump($bookmarks);
         $data = array(
@@ -198,26 +196,20 @@ class Torrent extends MY_Controller {
     public function add() {
 
         if (!$this->data['logged_in']) {
-
             $this->session->set_flashdata('info', 'Доступ к данной странице только для зарегистрированных пользователей!');
-
-
             redirect('auth/login', 'refresh');
         }
-
 
         $this->breadcrumb->append('Добавить новый торрент');
 
         $this->load->library('session');
         $this->load->helper('form');
-		$this->load->helper('security');
+	$this->load->helper('security');
         $this->load->library('form_validation');
         $this->load->library('parsing');
 
-
         $user = $this->data['curuser'];
-
-
+	$new_filename = (string) '';
         if ($user->can_upload == 'no')
             show_error('Вам запрещено добавлять торренты!');
 
@@ -228,21 +220,20 @@ class Torrent extends MY_Controller {
         $this->form_validation->set_rules('category', 'Категория', 'required|is_natural_no_zero');
 
         ###find out new torrent ID
-        $new_id = $this->details_model->new_torrent_id();
+        //$new_id = $this->details_model->new_torrent_id();
 
         ###file upload config
-        $config['upload_path'] = './public/upload/torrents/';
+        $config['upload_path'] = $this->config->item('public_folder') . 'upload/torrents/';
         $config['allowed_types'] = 'torrent';
         $config['max_size'] = '1048';
-        $config['file_name'] = $new_id . '.torrent';
+        $config['file_name'] = $new_filename = md5($user->id . microtime() . rand());//$new_id . '.torrent';
         $this->load->library('upload', $config);
-
-				$this->upload->initialize($config);
-
+	$this->upload->initialize($config);
+//	die(microtime());
         ###Here we work with uploaded torrent file
-        $torrent_errors = '';
-//print_r($_FILE); die();
-        $torrent_file = 'public/upload/torrents/' . $new_id . '.torrent';
+        print_r($config['file_name']);
+	$torrent_errors = '';
+        $torrent_file = $config['upload_path'] . $new_filename . '.torrent';
 
         if ($this->form_validation->run() && $this->upload->do_upload('file')) {
 
@@ -251,6 +242,12 @@ class Torrent extends MY_Controller {
             if (!isset($dict)) {
                 $torrent_errors .= "<p>Что за хрень ты загружаешь? Это не бинарно-кодированый файл!</p>";
             }
+            //save file to server?
+            $save = ($this->config->item('save_torrent') == FALSE ? 'no' : 'yes');
+            $torrent = new Torrenting($torrent_file);
+            $magnet = $torrent->magnet(); //generate magnet link
+            $torrent->comment($this->config->item('site_name')); //set comment (sitename)
+            $torrent->save($torrent_file);
 
             $info = $dict['info'];
 
@@ -369,8 +366,32 @@ class Torrent extends MY_Controller {
             $this->template->publish();
         } else { ///IF NO ERRORS THAN WORK WITH DB
             ### db get and insert torrent announce urls
+
+            ### db insert torrent data array
+            $array = array(
+                'name' => $this->input->post('title', TRUE),
+                'descr' => $this->input->post('descr', TRUE),
+                'poster' => $this->input->post('poster', TRUE),
+                'category' => (int) $this->input->post('category', TRUE),
+                'owner' => $user->id,
+                'file' => $save,
+                'url' => title_url($this->input->post('title', TRUE)),
+                'added' => time(),
+                'info_hash' => (function_exists('hex2bin') ? hex2bin($infohash) : pack('H*', $infohash)),
+                'size' => $totallen,
+                'numfiles' => count($filelist),
+                'type' => $type,
+                'magnet' => $magnet,
+                'can_comment' => ($this->input->post('can_comment') ? 'yes' : 'no'),
+                'modded' => ($this->ion_auth->in_group(array('admin', 'moderator', 'uploader')) ? 'yes' : 'no'),
+		'file_name' => $new_filename
+            );
+
+            //inserting data and getting insert_id()
+            $new_id = $this->details_model->add_info($array);
+
             if (empty($dict['announce-list']) && !empty($dict['announce']))
-                $dict['announce-list'][] = array($dict['announce']);
+			                $dict['announce-list'][] = array($dict['announce']);
 
             if (!empty($dict['announce-list'])) {
                 $parsed_urls = array();
@@ -408,68 +429,34 @@ class Torrent extends MY_Controller {
                 $this->details_model->add_files($array);
             }
 
-
-            //save file to server?
-            $save = ($this->config->item('save_torrent') == FALSE ? 'no' : 'yes');
-
-
-            $torrent = new Torrenting($torrent_file);
-            $magnet = $torrent->magnet(); //generate magnet link
-            $torrent->comment($this->config->item('site_name')); //set comment (sitename)
-            $torrent->save($torrent_file);
-
-
-            ### db insert torrent data array
-            $array = array(
-                'name' => $this->input->post('title', TRUE),
-                'descr' => $this->input->post('descr', TRUE),
-                'poster' => $this->input->post('poster', TRUE),
-                'category' => (int) $this->input->post('category', TRUE),
-                'owner' => $user->id,
-                'file' => $save,
-                'url' => title_url($this->input->post('title', TRUE)),
-                'added' => time(),
-                'info_hash' => (function_exists('hex2bin') ? hex2bin($infohash) : pack('H*', $infohash)),
-                'size' => $totallen,
-                'numfiles' => count($filelist),
-                'type' => $type,
-                'magnet' => $magnet,
-                'can_comment' => ($this->input->post('can_comment') ? 'yes' : 'no'),
-                'modded' => ($this->ion_auth->in_group(array('admin', 'moderator', 'uploader')) ? 'yes' : 'no')
-            );
-
-            //inserting data and getting insert_id()
-            $id = $this->details_model->add_info($array);
-
             //delete torrent file if set in config
             if ($save == 'no' && file_exists($torrent_file))
                 unlink($torrent_file);
 
             //redirect on success to update stats page
-            redirect('torrent/update/' . $id);
+            redirect('torrent/update/' . $new_id);
         }
     }
 
     public function delete($id) {
 
         $id = (int) $id;
-
-        // can delet only if user in $groups
+//	$filename = $this->details_model->get_filename($id);
+        
+	// can delet only if user in $groups
         if (!$this->data['admin_mod']) {
             redirect('/');
         }
 
-        if (!$this->details_model->get_details($id)) {
+        if (!$details = $this->details_model->get_details($id)) {
             show_404();
         }
-
         $this->load->library('session');
 
         $this->details_model->delete_torrent($id); ///inserting data
 
-
-        if (file_exists('public/upload/torrents/' . $id . '.torrent'))
-            unlink('public/upload/torrents/' . $id . '.torrent'); //deleting the file
+        if (file_exists($this->config->item('public_folder').'upload/torrents/' . $details->file_name . '.torrent'))
+            unlink($this->config->item('public_folder').'upload/torrents/' . $details->file_name . '.torrent'); //deleting the file
 
         $this->session->set_flashdata('info', 'Торрент был успешно удалён!');
 
@@ -517,9 +504,9 @@ class Torrent extends MY_Controller {
         $this->load->helper('download');
 
         $id = (int) $id;
-
-        $torrent_file = 'public/upload/torrents/' . $id . '.torrent';
+        
         $details = $this->details_model->get_details($id);
+	$torrent_file = 'public/upload/torrents/' . $details->file_name . '.torrent';
         if (file_exists($torrent_file) && $details) {
             $name = $details->url . '.torrent';
 			$torrent = new Torrenting( $torrent_file );

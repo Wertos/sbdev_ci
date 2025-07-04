@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Хост: localhost
--- Время создания: Июн 28 2025 г., 22:10
--- Версия сервера: 8.0.41-0ubuntu0.22.04.1
--- Версия PHP: 7.4.33
+-- Хост: 127.0.0.1
+-- Время создания: Июл 04 2025 г., 18:12
+-- Версия сервера: 10.1.38-MariaDB
+-- Версия PHP: 7.1.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -17,6 +18,10 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
+--
+-- База данных: `database`
+--
+
 -- --------------------------------------------------------
 
 --
@@ -24,10 +29,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `bookmarks` (
-  `id` int NOT NULL,
-  `user_id` int NOT NULL,
-  `t_id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `t_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -36,13 +41,20 @@ CREATE TABLE `bookmarks` (
 --
 
 CREATE TABLE `categories` (
-  `id` int UNSIGNED NOT NULL,
-  `sort` int NOT NULL DEFAULT '0',
+  `id` int(10) UNSIGNED NOT NULL,
+  `sort` int(11) NOT NULL DEFAULT '0',
   `name` varchar(30) NOT NULL DEFAULT '',
-  `parent` int NOT NULL DEFAULT '0',
+  `parent` int(11) NOT NULL DEFAULT '0',
   `url` varchar(70) NOT NULL,
   `icon` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Дамп данных таблицы `categories`
+--
+
+INSERT INTO `categories` (`id`, `sort`, `name`, `parent`, `url`, `icon`) VALUES
+(1, 1, 'aaaaaa', 0, 'aaaaaa', '');
 
 -- --------------------------------------------------------
 
@@ -51,14 +63,14 @@ CREATE TABLE `categories` (
 --
 
 CREATE TABLE `comments` (
-  `id` int UNSIGNED NOT NULL,
-  `user` int UNSIGNED NOT NULL DEFAULT '0',
-  `fid` int UNSIGNED NOT NULL DEFAULT '0',
-  `added` int UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `user` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `fid` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `added` int(10) UNSIGNED NOT NULL,
   `text` mediumtext NOT NULL,
-  `editedby` int UNSIGNED NOT NULL DEFAULT '0',
+  `editedby` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `location` enum('torrents') DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -67,10 +79,10 @@ CREATE TABLE `comments` (
 --
 
 CREATE TABLE `countries` (
-  `id` int UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(50) DEFAULT NULL,
   `flagpic` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Дамп данных таблицы `countries`
@@ -194,23 +206,21 @@ INSERT INTO `countries` (`id`, `name`, `flagpic`) VALUES
 --
 
 CREATE TABLE `files` (
-  `id` int UNSIGNED NOT NULL,
-  `torrent` int UNSIGNED NOT NULL DEFAULT '0',
+  `id` int(10) UNSIGNED NOT NULL,
+  `torrent` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `filename` varchar(255) NOT NULL DEFAULT '',
-  `size` bigint UNSIGNED NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
+  `size` bigint(20) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Структура таблицы `groups`
 --
 
 CREATE TABLE `groups` (
-  `id` mediumint UNSIGNED NOT NULL,
+  `id` mediumint(8) UNSIGNED NOT NULL,
   `name` varchar(20) NOT NULL,
   `description` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Дамп данных таблицы `groups`
@@ -229,11 +239,11 @@ INSERT INTO `groups` (`id`, `name`, `description`) VALUES
 --
 
 CREATE TABLE `login_attempts` (
-  `id` int UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
   `ip_address` varchar(15) NOT NULL,
   `login` varchar(100) NOT NULL,
-  `time` int UNSIGNED DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `time` int(10) UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -242,10 +252,10 @@ CREATE TABLE `login_attempts` (
 --
 
 CREATE TABLE `parser` (
-  `id` int NOT NULL,
-  `t_id` int NOT NULL,
-  `site` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id` int(11) NOT NULL,
+  `t_id` int(11) NOT NULL,
+  `site` varchar(32) CHARACTER SET utf8 DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -254,15 +264,15 @@ CREATE TABLE `parser` (
 --
 
 CREATE TABLE `reports` (
-  `id` int UNSIGNED NOT NULL,
-  `fid` int UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `fid` int(10) UNSIGNED NOT NULL,
   `comment` mediumtext NOT NULL,
-  `added` int UNSIGNED NOT NULL,
-  `modded_by` int UNSIGNED NOT NULL DEFAULT '0',
+  `added` int(10) UNSIGNED NOT NULL,
+  `modded_by` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `location` enum('torrents','comments') NOT NULL,
-  `sender` int UNSIGNED NOT NULL DEFAULT '0',
+  `sender` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `ip` varchar(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -273,62 +283,59 @@ CREATE TABLE `reports` (
 CREATE TABLE `sessions` (
   `id` varchar(40) NOT NULL,
   `ip_address` varchar(45) NOT NULL,
-  `timestamp` int UNSIGNED NOT NULL DEFAULT '0',
+  `timestamp` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `data` blob NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Структура таблицы `torrents`
 --
 
 CREATE TABLE `torrents` (
-  `id` int UNSIGNED NOT NULL,
-  `owner` int UNSIGNED NOT NULL DEFAULT '0',
+  `id` int(10) UNSIGNED NOT NULL,
+  `owner` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `info_hash` binary(20) NOT NULL,
-  `numfiles` int UNSIGNED NOT NULL DEFAULT '0',
-  `size` bigint UNSIGNED NOT NULL DEFAULT '0',
+  `numfiles` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `size` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
   `type` enum('single','multi') NOT NULL DEFAULT 'single',
   `name` varchar(255) NOT NULL DEFAULT '',
   `descr` mediumtext NOT NULL,
-  `category` int UNSIGNED NOT NULL DEFAULT '0',
-  `added` int UNSIGNED NOT NULL,
-  `completed` int UNSIGNED NOT NULL DEFAULT '0',
-  `leechers` int UNSIGNED NOT NULL DEFAULT '0',
-  `seeders` int UNSIGNED NOT NULL DEFAULT '0',
+  `category` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `added` int(10) UNSIGNED NOT NULL,
+  `completed` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `leechers` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `seeders` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `poster` varchar(255) DEFAULT NULL,
   `magnet` mediumtext,
   `last_update` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `url` varchar(250) DEFAULT NULL,
   `file` enum('yes','no') NOT NULL DEFAULT 'yes',
-  `comments` int UNSIGNED NOT NULL DEFAULT '0',
+  `comments` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `can_comment` enum('yes','no') NOT NULL DEFAULT 'yes',
   `modded` enum('yes','no') NOT NULL DEFAULT 'no',
-  `views` int NOT NULL DEFAULT '0',
-  `downloaded` int DEFAULT '0',
+  `views` int(11) NOT NULL DEFAULT '0',
+  `downloaded` int(11) DEFAULT '0',
   `updated` tinyint(1) NOT NULL DEFAULT '0',
-  `data` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
+  `data` text NOT NULL,
+  `file_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Структура таблицы `torrents_scrape`
 --
 
 CREATE TABLE `torrents_scrape` (
-  `id` int NOT NULL,
-  `tid` int UNSIGNED NOT NULL DEFAULT '0',
+  `id` int(11) NOT NULL,
+  `tid` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `info_hash` varbinary(40) NOT NULL DEFAULT '',
   `url` varchar(100) NOT NULL DEFAULT '',
-  `seeders` int UNSIGNED NOT NULL DEFAULT '0',
-  `leechers` int UNSIGNED NOT NULL DEFAULT '0',
-  `completed` int UNSIGNED NOT NULL DEFAULT '0',
+  `seeders` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `leechers` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `completed` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `state` enum('ok','error') NOT NULL DEFAULT 'ok',
   `error` varchar(255) NOT NULL DEFAULT ''
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -339,9 +346,9 @@ CREATE TABLE `torrents_scrape` (
 CREATE TABLE `tracker` (
   `info_hash` char(40) NOT NULL,
   `ip` char(8) NOT NULL,
-  `port` smallint UNSIGNED NOT NULL DEFAULT '0',
-  `update_time` int NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `port` smallint(5) UNSIGNED NOT NULL DEFAULT '0',
+  `update_time` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -350,7 +357,7 @@ CREATE TABLE `tracker` (
 --
 
 CREATE TABLE `users` (
-  `id` int UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
   `ip_address` varchar(15) NOT NULL,
   `username` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
@@ -358,25 +365,25 @@ CREATE TABLE `users` (
   `email` varchar(100) NOT NULL,
   `activation_code` varchar(40) DEFAULT NULL,
   `forgotten_password_code` varchar(40) DEFAULT NULL,
-  `forgotten_password_time` int UNSIGNED DEFAULT NULL,
+  `forgotten_password_time` int(10) UNSIGNED DEFAULT NULL,
   `remember_code` varchar(40) DEFAULT NULL,
-  `created_on` int UNSIGNED NOT NULL,
-  `last_login` int UNSIGNED DEFAULT NULL,
-  `active` tinyint UNSIGNED DEFAULT NULL,
-  `country` int UNSIGNED NOT NULL DEFAULT '0',
+  `created_on` int(10) UNSIGNED NOT NULL,
+  `last_login` int(10) UNSIGNED DEFAULT NULL,
+  `active` tinyint(3) UNSIGNED DEFAULT NULL,
+  `country` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `userfile` varchar(40) DEFAULT NULL,
   `can_comment` enum('yes','no') NOT NULL DEFAULT 'yes',
   `can_upload` enum('yes','no') NOT NULL DEFAULT 'yes'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Дамп данных таблицы `users`
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `country`, `userfile`, `can_comment`, `can_upload`) VALUES
-(1, '127.0.0.1', 'Wertos', '$2y$08$J2gXeo61qH0jxIpPfLhnq.DlPdLR04TevheEkz9EhG3VDJ/04g2p.', NULL, 'tutaew@ya.ru', NULL, NULL, NULL, 'wTwEZtVKZuDc5RqsaFGTOe', 1504915200, 1751137453, 1, 3, '77d180107b47a0749bf80a57c364a2e7.jpg', 'yes', 'yes'),
-(2, '127.0.0.1', 'Bot', '', NULL, '', NULL, NULL, NULL, NULL, 0, NULL, 0, 3, 'bot.png', 'yes', 'yes'),
-(3, '127.0.0.1', 'EroGirl', '', NULL, '', NULL, NULL, NULL, NULL, 0, NULL, 0, 3, 'erobot.jpg', 'yes', 'yes');
+(1, '127.0.0.1', 'Wertos', '$2y$08$J2gXeo61qH0jxIpPfLhnq.DlPdLR04TevheEkz9EhG3VDJ/04g2p.', NULL, 'tutaew@ya.ru', NULL, NULL, NULL, '/27CQ/tbF7mY/ykao1KJ9.', 1504915200, 1751641455, 1, 3, '77d180107b47a0749bf80a57c364a2e7.jpg', 'yes', 'yes'),
+(2, '127.0.0.1', 'Bot', '', NULL, '', NULL, NULL, NULL, NULL, 0, NULL, 0, 3, 'bot.png', 'no', 'yes'),
+(3, '127.0.0.1', 'EroGirl', '', NULL, '', NULL, NULL, NULL, NULL, 0, NULL, 0, 3, 'erobot.jpg', 'no', 'yes');
 
 -- --------------------------------------------------------
 
@@ -385,17 +392,19 @@ INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`
 --
 
 CREATE TABLE `users_groups` (
-  `id` int UNSIGNED NOT NULL,
-  `user_id` int UNSIGNED NOT NULL,
-  `group_id` mediumint UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `group_id` mediumint(8) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Дамп данных таблицы `users_groups`
 --
 
 INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
-(1, 1, 1);
+(1, 1, 1),
+(2, 2, 3),
+(3, 3, 3);
 
 --
 -- Индексы сохранённых таблиц
@@ -513,79 +522,79 @@ ALTER TABLE `users_groups`
 -- AUTO_INCREMENT для таблицы `bookmarks`
 --
 ALTER TABLE `bookmarks`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `countries`
 --
 ALTER TABLE `countries`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `files`
 --
 ALTER TABLE `files`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `login_attempts`
 --
 ALTER TABLE `login_attempts`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `parser`
 --
 ALTER TABLE `parser`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `reports`
 --
 ALTER TABLE `reports`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `torrents`
 --
 ALTER TABLE `torrents`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `torrents_scrape`
 --
 ALTER TABLE `torrents_scrape`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц

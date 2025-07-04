@@ -95,6 +95,11 @@ class Details_model extends CI_Model {
         $this->db->delete('comments', array('fid' => $id, 'location' => 'torrents'));
     }
 
+    function get_filename ($id) {
+	$query = $this->db->get_where('torrents', array('id' => $id), 1);
+	return $query->row()->file_name;
+    }	
+
     function get_related($title, $tid, $cid) {
         $words = explode(' ',$title);
 		foreach($words as $k){
