@@ -8,7 +8,7 @@
             <ul class="nav user_menu nav-stacked">
                 <li><?php echo anchor("user/profile", '<span class="glyphicon glyphicon-cog user_menu_icon"></span>Профиль') ?></li>
                 <li><?php echo anchor("user/torrents", '<span class="glyphicon glyphicon-list-alt user_menu_icon"></span>Мои раздачи') ?></li>
-				        <li><?php echo anchor("user/bookmarks", '<span class="glyphicon glyphicon-bookmark user_menu_icon"></span>Мои закладки') ?></li>
+	        <li><?php echo anchor("user/bookmarks", '<span class="glyphicon glyphicon-bookmark user_menu_icon"></span>Мои закладки') ?></li>
                 <li><?php echo anchor("user/comments", '<span class="glyphicon glyphicon-bullhorn user_menu_icon"></span>Мои комментарии') ?></li>
                 <li><?php echo anchor("torrent/add", '<span class="glyphicon glyphicon-upload user_menu_icon"></span>Добавить торрент') ?></li>
                 <li><?php echo anchor("user/logout", '<span class="glyphicon glyphicon-off user_menu_icon"></span>Выйти') ?></li>

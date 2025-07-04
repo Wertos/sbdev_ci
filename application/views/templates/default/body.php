@@ -108,9 +108,9 @@
                         <?php echo $this->template->partial->view("widgets/categories"); ?>
                         <?php echo $this->template->widget("stats"); ?>
                         <?php 
-							if($logged_in)
-									echo $this->template->widget("online");
-						?>
+				if($logged_in)
+					echo $this->template->widget("online");
+			?>
                       </div>
                     <!-- Sidebar -->
                 </div>
