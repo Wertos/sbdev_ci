@@ -7,27 +7,27 @@
         var self = $(this);
         var textarea = $("#area");
 
-        var editor = '<div class="btn-group" style="padding-left: 0px; margin-bottom : 3px;" role="group">';
+        var editor = '<div class="btn-group border border-3" style="padding-left: 0px; margin-bottom : 3px;" role="group">';
         if (tags.bold)
-            editor += '<button aria-label="bold" type="button" title="Жирный" class="btn btn-sm btn-primary bold"><b>B</b></button>';
+            editor += '<button aria-label="bold" type="button" title="Жирный" class="btn btn-sm btn-dark bold"><b>B</b></button>';
         if (tags.italic)
-            editor += '<button aria-label="italic" type="button" title="Курсив" class="btn btn-sm btn-primary italic"><i><b>I<b></i></button>';
+            editor += '<button aria-label="italic" type="button" title="Курсив" class="btn btn-sm btn-dark italic"><i><b>I<b></i></button>';
         if (tags.underline)
-            editor += '<button aria-label="underline" type="button" title="Подчеркнутый" class="btn btn-sm btn-primary underline"><u><b>U</b></u></button>';
+            editor += '<button aria-label="underline" type="button" title="Подчеркнутый" class="btn btn-sm btn-dark underline"><u><b>U</b></u></button>';
         if (tags.strike)
-            editor += '<button aria-label="strike" type="button" title="Зачеркнутый" class="btn btn-sm btn-primary strike"><s><b>S</b></s></button>';
+            editor += '<button aria-label="strike" type="button" title="Зачеркнутый" class="btn btn-sm btn-dark strike"><s><b>S</b></s></button>';
         if (tags.link)
-            editor += '<button aria-label="link" type="button" title="Ссылка" class="btn btn-sm btn-primary link"><b>URL</b></button>';
+            editor += '<button aria-label="link" type="button" title="Ссылка" class="btn btn-sm btn-dark link"><b>URL</b></button>';
         if (tags.image)
-            editor += '<button aria-label="image" type="button" title="Изображение" class="btn btn-sm btn-primary image"><b>IMG</b></button>';
+            editor += '<button aria-label="image" type="button" title="Изображение" class="btn btn-sm btn-dark image"><b>IMG</b></button>';
         if (tags.quote)
-            editor += '<button aria-label="quote" type="button" title="Цитата" class="btn btn-sm btn-primary quote"><b>QUOTE</b></button>';
+            editor += '<button aria-label="quote" type="button" title="Цитата" class="btn btn-sm btn-dark quote"><b>QUOTE</b></button>';
         if (tags.spoiler)
-            editor += '<button aria-label="bbspoiler" type="button" title="Спойлер" class="btn btn-sm btn-primary bbspoiler"><b>SPOILER</b></button>';
+            editor += '<button aria-label="bbspoiler" type="button" title="Спойлер" class="btn btn-sm btn-dark bbspoiler"><b>SPOILER</b></button>';
         if (tags.youtube)
-            editor += '<button aria-label="youtube" type="button" title="Видео YouTube" class="btn btn-sm btn-primary youtube"><span class="glyphicon glyphicon-film"></span></button>';
+            editor += '<button aria-label="youtube" type="button" title="Видео YouTube" class="btn btn-sm btn-dark youtube"><span class="glyphicon glyphicon-film"></span></button>';
         if (tags.smiles)
-            editor += '<button aria-label="smiles" type="button" title="Смайлики" class="btn btn-sm btn-primary smiles"><b>SMILE <span class="caret"></span></b></button>';
+            editor += '<button aria-label="smiles" type="button" title="Смайлики" class="btn btn-sm btn-dark smiles"><b>SMILE <span class="caret"></span></b></button>';
 
         editor += '</div>';
 

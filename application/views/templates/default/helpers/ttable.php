@@ -1,6 +1,3 @@
-<?= link_tag('public/assets/datatables/css/bootstrap.css') ?>
-<script src="<?= base_url('public/assets/datatables/js/jquery.dataTables.min.js') ?>"></script>
-<script src="<?= base_url('public/assets/datatables/js/bootstrap.js') ?>"></script>
 <style type="text/css">
 div.dataTables_processing {background: transparent !important; top: 100px !important;}
 </style>

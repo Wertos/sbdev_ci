@@ -59,6 +59,7 @@ class MY_Controller extends CI_Controller {
         $this->template->stylesheet->add("public/assets/" . $this->config->item('default_theme') . ".css" . $this->config->item('cssjsver'));
 
         $this->template->javascript->add("public/assets/js/jquery-3.7.1.min.js" . $this->config->item('cssjsver'));
+	$this->template->javascript->add("public/assets/datatables/js/jquery.dataTables.min.js" . $this->config->item('cssjsver'));
         $this->template->javascript->add("public/assets/bootstrap/js/bootstrap.bundle.min.js" . $this->config->item('cssjsver'));
         $this->template->javascript->add("public/assets/js/main.js" . $this->config->item('cssjsver'));
         if(!$this->agent->is_robot()) {

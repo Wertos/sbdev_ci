@@ -43,7 +43,7 @@
                                 <li title="Сидов" style="color: green;"><span class="glyphicon glyphicon-arrow-up"></span> ' . number_format($row->seeders) . '</li>
                                 <li title="Личеров" style="color: red;"><span class="glyphicon glyphicon-arrow-down"></span> ' . number_format($row->leechers) . '</li>
                                 <li title="Скачан" style="color: #255a6c;"><span class="glyphicon glyphicon-saved"></span> '.number_format($row->completed).'</li>    
-                                <li title="'.number_format($row->downloaded).'"><span class="glyphicon glyphicon-eye-open"></span> '.number_format($row->views).'</li>    
+                                <li title="Просмотров"><span class="glyphicon glyphicon-eye-open"></span> '.number_format($row->views).'</li>    
                     <li class="navbar-right">
                         <ul class="list-inline">
                             <li>' . ($row->comments > 0 ? number_format($row->comments) . ' <span class="glyphicon glyphicon-comment"></span>' : '') . '</li>

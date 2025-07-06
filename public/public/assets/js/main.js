@@ -1,5 +1,6 @@
 var userinfo = function(id) {
-    $('#myModal').modal();
+    const modal = new bootstrap.Modal(document.querySelector('#myModal'));
+    modal.show();
     $("#modal-body").load('/user/' + id);
 };
 
@@ -28,7 +29,8 @@ var clear_textbox = function() {
 };
 
 var edit_comment_box = function(id) {
-    $('#myModal').modal();
+    const modal = new bootstrap.Modal(document.querySelector('#myModal'));
+    modal.show();
     $.get("/comments/edit/" + id, function(html) {
         $("#modal-body").html(html)
     });
@@ -36,7 +38,8 @@ var edit_comment_box = function(id) {
 };
 
 var report_box = function(id, where) {
-    $('#myModal').modal();
+    const modal = new bootstrap.Modal(document.querySelector('#myModal'));
+    modal.show();
     $.get("/report/send/" + id + "/" + where, function(html) {
         $("#modal-body").html(html)
     });
