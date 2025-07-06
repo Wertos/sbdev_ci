@@ -108,7 +108,7 @@ class Report extends MY_Controller
 
             $this
                 ->session
-                ->set_flashdata('message', 'Жалоба успешно отправлена!');
+                ->set_flashdata('info', 'Жалоба успешно отправлена!');
 
             die;
         }

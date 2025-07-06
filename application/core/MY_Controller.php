@@ -52,7 +52,7 @@ class MY_Controller extends CI_Controller {
 
 	$this->template->powered = 'Powered by sbdev_ci & <a href="'.base_url().'">'.$this->config->item('site_name').'</a> & Codeigniter ver. '.CI_VERSION;
         $this->template->loadtime = 'Executed in ' . $this->benchmark->elapsed_time() . ' (' . $this->benchmark->memory_usage() . ')';
-        $this->template->info = ($this->session->flashdata('info') ? '<div class="alert alert-info fade in" role="alert"><button data-dismiss="alert" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>' . $this->session->flashdata('info') . '</div>' : '');
+        $this->template->info = ($this->session->flashdata('info') ? '<div class="alert alert-info fade in" role="alert"><button data-bs-dismiss="alert" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>' . $this->session->flashdata('info') . '</div>' : '');
 
         $this->template->stylesheet->add("public/assets/bootstrap/css/metro.min.css" . $this->config->item('cssjsver'));
         $this->template->stylesheet->add("public/assets/bootstrap/css/glyphicons-social.min.css" . $this->config->item('cssjsver'));
