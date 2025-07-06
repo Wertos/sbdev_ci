@@ -57,15 +57,11 @@
                     <? endforeach; ?>
                 </div>
             <div class="panel-footer">
-							<?php echo get_pag($cat->id); ?>
-						</div>
-		  </div>
+		<?php echo get_pag($cat->id); ?>
+            </div>
+	  </div>
         </div>
-
-                    <?php
-        }
-                ?>
-
+        <?php } ?>
 </div>
 
 <?php

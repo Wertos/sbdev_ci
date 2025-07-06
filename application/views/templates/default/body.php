@@ -59,14 +59,14 @@
             <?= form_open('browse/search', array('class' => 'main_search', 'id' => 'main_search')) ?>
             <div class="input-group" role="group" style="padding: 5px 0px 5px 0px;">
                 <input placeholder="Введите текст для поиска" id="search-home" type="search" name="q" value="" class="form-control input-sm main_search">
-                <div class="input-group-btn">
-	 				<button style="width:auto;" title="Можно указать категорию<br />для поиска или не указывать,<br />тогда поиск будет осуществляться<br />по всем категориям." class="btn btn-danger btn-sm" type="button" id="cats-sel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Категория <span class="caret"></span></button>
+                <div class="input-group-btn dropdown">
+	 				<button style="width:auto;" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-danger btn-sm dropdown-toggle" type="button" id="cats-sel"><div style="width:100%; height:100%;" title="Можно указать категорию<br />для поиска или не указывать,<br />тогда поиск будет осуществляться<br />по всем категориям.">Категория <span class="caret"></span></div></button>
 					<input type="hidden" value="0" id="cat-id" name="cat-id">	
-						<ul class="dropdown-menu">
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuCat">
 						    <?php
-						        $cat_list = '<li><a onclick="$(\'#cats-sel\').html(\'Категория <span class=caret></span>\'); $(\'#cat-id\').val(0);" href="javascript:void(0);" id="reset-cat"><span class="glyphicon glyphicon-remove" style="color:red;"></span> Сбросить</a></li>';
+						        $cat_list = '<li><a onclick="$(\'#cats-sel div\').html(\'Категория <span class=caret></span>\'); $(\'#cat-id\').val(0);" href="javascript:void(0);" id="reset-cat"><span class="glyphicon glyphicon-remove" style="color:red;"></span> Сбросить</a></li>';
 						    	foreach($categories as $cat) {
-						    		$cat_list .= '<li><a onclick="$(\'#cats-sel\').html($(this).text()+\' <span class=caret></span>\'); $(\'#cat-id\').val($(this).attr(\'id\'));" href="javascript:void(0);" id="'.$cat->id.'">'.$cat->name.'</a></li>';
+						    		$cat_list .= '<li><a onclick="$(\'#cats-sel div\').html($(this).text()+\' <span class=caret></span>\'); $(\'#cat-id\').val($(this).attr(\'id\'));" href="javascript:void(0);" id="'.$cat->id.'">'.$cat->name.'</a></li>';
 						    	}
 						    	echo $cat_list;
 						    ?>

@@ -1,6 +1,6 @@
 <div class="panel panel-info" style="margin-right: -10px;margin-left: -4px;">
 <div class="panel-heading">
-  <h3 class="panel-title" style="color: darkblue;"><b>Правила каталога магнет ссылок ToRR.ws</b></h3>
+  <h3 class="panel-title" style="color: darkblue;"><b>Правила каталога магнет ссылок MySte</b></h3>
 </div>
 <div class="panel-body">
 <ol>

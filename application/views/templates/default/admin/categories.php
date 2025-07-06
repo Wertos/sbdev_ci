@@ -12,7 +12,7 @@
 					<div class="dropdown">
 						<label for="icon">Иконка</label>
 						<input type="hidden" id="icon" name="icon" value="">
-						<button class="btn btn-default dropdown-toggle" type="button" id="IconMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						<button class="btn btn-default dropdown-toggle" type="button" id="IconMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 						<span class="caret"></span>
 						</button>
 						<ul style="width: 365px;" class="dropdown-menu" aria-labelledby="IconMenu">

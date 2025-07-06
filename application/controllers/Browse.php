@@ -8,15 +8,9 @@ class Browse extends MY_Controller
     {
         parent::__construct();
 
-        $this
-            ->load
-            ->model('browse_model', 'browse');
-        $this
-            ->load
-            ->library('Datatables');
-        $this
-            ->load
-            ->helper('torrenttable');
+        $this->load->model('browse_model', 'browse');
+        $this->load->library('Datatables');
+        $this->load->helper('torrenttable');
 
     }
 
@@ -304,4 +298,3 @@ class Browse extends MY_Controller
     }
 
 }
-

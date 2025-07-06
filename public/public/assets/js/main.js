@@ -43,6 +43,18 @@ var report_box = function(id, where) {
     return false;
 };
 
+var delete_comment = function(id) {
+    var parent = $("li[id='c-" + id + "']");
+    if (confirm("Удалить этот комментарий?"))
+    {
+        $.get("/comments/delete/" + id, function() {
+            parent.fadeOut('slow', function() {
+                $(this).remove();
+            });
+        });
+    }
+    return false;
+};
 
 var quote_comment = function(id, user) {
 
@@ -145,7 +157,16 @@ $(function() {
 
 
     ////tooltip
-    $("[title]").tooltip({html: true});
+    //$("[title]").tooltip({html: true});
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[title]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+	return new bootstrap.Tooltip(tooltipTriggerEl,
+		{
+			html : true,
+			placement : 'top',
+			customClass : 'top in'
+		})
+    });
 
     ///spoiler
     $('.spoiler').click(function() {
@@ -261,8 +282,12 @@ pager = function(catid,start,name,value,act) {
 			$('#catid_'+catid).html(data['html']).data('start', start);
 			$("[title]").tooltip({html: true});
 			$("#pag_prev_"+catid).attr('disabled', false);
+			$("#pag_next_"+catid).attr('disabled', false);
 			if(data['start'] == 0) {
 			  $("#pag_prev_"+catid).attr('disabled', true);
+			}
+			if(data['stop'] == 'true') {
+			  $("#pag_next_"+catid).attr('disabled', true);
 			}
 	});
 };

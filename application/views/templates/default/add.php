@@ -1,15 +1,10 @@
 <?= $errors; ?>
-
 <?php echo form_open_multipart('torrent/add', '', array('max_file_size' => '1002400')) ?>
 
 <div class="alert alert-info" role="alert">
   <p>При создании .torrent файла, необходимо указать один или несколько надёжных аннонсеров, например:<br />
 	<span class="bold">
-	http://87.248.186.252:8080/announce<br />
-	udp://46.148.18.250:2710<br />
-	udp://ipv6.leechers-paradise.org:6969<br />
-	udp://torr.ws:2710/announce<br />
-	http://torr.ws:2710/announce<br />
+		Список надёжных анонсеров
 	</span>
   </p>
 </div>

@@ -46,7 +46,7 @@ function text_add(&$item, $key) {
 function avatar($user, $size = 100) {
     $avatarpath = 'public/upload/avatars/' . $user;
     if (!file_exists($avatarpath))
-			$avatarpath = 'public/assets/pic/default_avatar.jpg';
+    $avatarpath = 'public/assets/pic/default_avatar.jpg';
     $image_properties = array(
         'src' => ($user != '' ? $avatarpath : 'public/assets/pic/default_avatar.jpg'),
         'class' => 'img-rounded img-responsive avatar',
