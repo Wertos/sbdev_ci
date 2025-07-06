@@ -7,35 +7,36 @@
         var self = $(this);
         var textarea = $("#area");
 
-        var editor = '<ul class="tags" style="padding-left: 0px;">';
+        var editor = '<div class="btn-group" style="padding-left: 0px; margin-bottom : 3px;" role="group">';
         if (tags.bold)
-            editor += '<li><a title="Жирный" class="bbtags bold" href="#"></a></li>';
+            editor += '<button aria-label="bold" type="button" title="Жирный" class="btn btn-sm btn-primary bold"><b>B</b></button>';
         if (tags.italic)
-            editor += '<li><a title="Курсив" class="bbtags italic" href="#"></a></li>';
+            editor += '<button aria-label="italic" type="button" title="Курсив" class="btn btn-sm btn-primary italic"><i><b>I<b></i></button>';
         if (tags.underline)
-            editor += '<li><a title="Подчеркнутый" class="bbtags underline" href="#"></a></li>';
+            editor += '<button aria-label="underline" type="button" title="Подчеркнутый" class="btn btn-sm btn-primary underline"><u><b>U</b></u></button>';
         if (tags.strike)
-            editor += '<li><a title="Зачеркнутый" class="bbtags strike" href="#"></a></li>';
+            editor += '<button aria-label="strike" type="button" title="Зачеркнутый" class="btn btn-sm btn-primary strike"><s><b>S</b></s></button>';
         if (tags.link)
-            editor += '<li><a title="Ссылка" class="bbtags link" href="#"></a></li>';
+            editor += '<button aria-label="link" type="button" title="Ссылка" class="btn btn-sm btn-primary link"><b>URL</b></button>';
         if (tags.image)
-            editor += '<li><a title="Изображение" class="bbtags image" href="#"></a></li>';
+            editor += '<button aria-label="image" type="button" title="Изображение" class="btn btn-sm btn-primary image"><b>IMG</b></button>';
         if (tags.quote)
-            editor += '<li><a title="Цитата" class="bbtags quote" href="#"></a></li>';
+            editor += '<button aria-label="quote" type="button" title="Цитата" class="btn btn-sm btn-primary quote"><b>QUOTE</b></button>';
+        if (tags.spoiler)
+            editor += '<button aria-label="bbspoiler" type="button" title="Спойлер" class="btn btn-sm btn-primary bbspoiler"><b>SPOILER</b></button>';
         if (tags.youtube)
-            editor += '<li><a title="Видео YouTube" class="bbtags youtube" href="#"></a></li>';
+            editor += '<button aria-label="youtube" type="button" title="Видео YouTube" class="btn btn-sm btn-primary youtube"><span class="glyphicon glyphicon-film"></span></button>';
         if (tags.smiles)
-            editor += '<li><a title="Смайлики" class="bbtags smiles" href="#"></a></li>';
+            editor += '<button aria-label="smiles" type="button" title="Смайлики" class="btn btn-sm btn-primary smiles"><b>SMILE <span class="caret"></span></b></button>';
 
-        editor += '</ul>';
+        editor += '</div>';
 
 
         this.prepend(editor);
-
-        this.find('.bbtags').bind('click', function(e) {
+        this.find('button:button').bind('click', function(e) {
             e.preventDefault();
 
-            var c = $(this).attr('class').substr(7);
+            var c = $(this).attr('aria-label');
 
             if (c == 'bold')
                 insertB('[b]', '[/b]', textarea);
@@ -51,6 +52,8 @@
                 insertB('[img]', '[/img]', textarea);
             else if (c == 'quote')
                 insertB('[quote]', '[/quote]', textarea);
+            else if (c == 'bbspoiler')
+                insertB('[spoiler]', '[/spoiler]', textarea);
             else if (c == 'youtube') {
                 var yt = self.find('.youtube-bubble');
                 var sm = self.find('.smiles-bubble');
@@ -74,13 +77,13 @@
                     $('.pixfuture').css('visibility', 'visible');
                 }
             }
-        });
+        }).tooltip({placement : 'bottom'});
 
         if (tags.youtube)
-            this.find('.bbtags.youtube').parent().append('<div class="youtube-bubble"><div class="youtube-wrap"><p>Ссылка на видео YouTube:</p><input name="youtube"/><button>ОК</button></div></div>');
+            this.find('button.youtube').append('<div class="youtube-bubble"><div class="youtube-wrap"><p>Ссылка на видео YouTube:</p><input name="youtube"/><button>ОК</button></div></div>');
 
         if (tags.smiles) {
-            this.find('.bbtags.smiles').parent().append('<div class="smiles-bubble"><div class="smiles-wrap"><ul class="smiles-list">' + sShort + '</ul></div></div>');
+            this.find('button.smiles').append('<div class="smiles-bubble"><div class="smiles-wrap"><ul class="smiles-list">' + sShort + '</ul></div></div>');
 
 
             this.find('.smile-link').click(function(e) {
@@ -170,6 +173,7 @@
             link: true,
             image: true,
             quote: true,
+            spoiler: true,
             youtube: false,
             smiles: true
         });

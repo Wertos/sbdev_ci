@@ -104,7 +104,7 @@
     <div id="comm"> <!--To scroll pagination url -->
         <?= $commentform ?>
         <ul id="comments" class="list-unstyled"> <!-- do not change, used by ajax -->
-            <?= $comments ?>
+        <?= $comments ?>
         </ul>
     </div>
     <?= $pagination ?>

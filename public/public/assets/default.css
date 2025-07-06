@@ -384,7 +384,7 @@ div.smiles-bubble, .smiles-bubble-fast {
     background: url("pic/bubble.gif") no-repeat scroll -20px bottom transparent;
     display: none;
     height: 85px;
-    margin: -105px 0 0 -10px;
+    margin: -110px 0 0 -15px;
     padding: 0 2px 7px 0;
     position: absolute;
 }
