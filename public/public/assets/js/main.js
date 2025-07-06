@@ -157,14 +157,13 @@ $(function() {
 
 
     ////tooltip
-    //$("[title]").tooltip({html: true});
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[title]'))
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
 	return new bootstrap.Tooltip(tooltipTriggerEl,
 		{
 			html : true,
 			placement : 'top',
-			customClass : 'top in'
+			customClass : ''
 		})
     });
 

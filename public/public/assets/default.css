@@ -705,3 +705,14 @@ h5.list-group-item-heading {
   opacity: 1;
   box-shadow: 0 5px 0.5em -1px #666;
 }
+.tool-tip {
+    display: none;
+    position: absolute;
+    background-color: #000;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    z-index: 1000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

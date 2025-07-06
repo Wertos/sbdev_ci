@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<?php echo $this->template->meta; ?>
-	<!-- <link rel="alternate" type="application/rss+xml" title="Новые торренты ToRR.ws" href="<?php echo base_url(); ?>rss.xml" />  -->
+	<!-- <link rel="alternate" type="application/rss+xml" title="Новые торренты <?php echo $this->config->item('site_name'); ?>" href="<?php echo base_url(); ?>rss.xml" />  -->
         <?php 
 			/*        	
         	$css = $this->template->stylesheet; 
@@ -42,7 +42,7 @@
 		<meta property="og:site_name" content="<?php echo $this->config->item('site_name'); ?>" />
 		<meta property="og:title" content="<?php echo $this->_ci_cached_vars['details']->name; ?>" />
 		<?php preg_match('/<img[^>]*?src=\"(.*)\"/iU', $this->_ci_cached_vars['details']->poster, $result);	?>
-		<meta property="og:image" content="<?php echo $result[1]; ?>" />
+		<meta property="og:image" content="<?php echo isset($result[1]) ? $result[1] : ''; ?>" />
 		<meta property="og:type" content="article" />
 		<meta property="og:url" content= "<?php echo base_url().$this->_ci_cached_vars['details']->id.'-'.$this->_ci_cached_vars['details']->url; ?>" />    
 <?php endif; ?>
@@ -60,7 +60,7 @@
             <div class="input-group" role="group" style="padding: 5px 0px 5px 0px;">
                 <input placeholder="Введите текст для поиска" id="search-home" type="search" name="q" value="" class="form-control input-sm main_search">
                 <div class="input-group-btn dropdown">
-	 				<button style="width:auto;" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-danger btn-sm dropdown-toggle" type="button" id="cats-sel"><div style="width:100%; height:100%;" title="Можно указать категорию<br />для поиска или не указывать,<br />тогда поиск будет осуществляться<br />по всем категориям.">Категория <span class="caret"></span></div></button>
+	 				<button data-toggle="dropdown" data-bs-toggle="dropdown" aria-expanded="false" style="width:auto;" class="btn btn-danger btn-sm dropdown-toggle" type="button" id="cats-sel"><div title="Можно указать категорию<br />для поиска или не указывать,<br />тогда поиск будет осуществляться<br />по всем категориям.">Категория <span class="caret"></span></div></button>
 					<input type="hidden" value="0" id="cat-id" name="cat-id">	
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuCat">
 						    <?php

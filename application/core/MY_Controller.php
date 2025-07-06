@@ -55,8 +55,7 @@ class MY_Controller extends CI_Controller {
         $this->template->info = ($this->session->flashdata('info') ? '<div class="alert alert-info fade in" role="alert"><button data-dismiss="alert" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>' . $this->session->flashdata('info') . '</div>' : '');
 
         $this->template->stylesheet->add("public/assets/bootstrap/css/metro.min.css" . $this->config->item('cssjsver'));
-//        $this->template->stylesheet->add("public/assets/bootstrap/css/bootstrap.min.css" . $this->config->item('cssjsver'));
-        $this->template->stylesheet->add("public/assets/bootstrap/css/glyphicons-social.css" . $this->config->item('cssjsver'));
+        $this->template->stylesheet->add("public/assets/bootstrap/css/glyphicons-social.min.css" . $this->config->item('cssjsver'));
         $this->template->stylesheet->add("public/assets/" . $this->config->item('default_theme') . ".css" . $this->config->item('cssjsver'));
 
         $this->template->javascript->add("public/assets/js/jquery-3.7.1.min.js" . $this->config->item('cssjsver'));
